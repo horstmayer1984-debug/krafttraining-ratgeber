@@ -2,7 +2,8 @@ baseURL = "https://krafttraining.online/"
 languageCode = "de"
 title = "Krafttraining Ratgeber — Funktionelles Training mit System"
 theme = "hugo-theme-stack"
-paginate = 12
+[pagination]
+   pagerSize = 12
 defaultContentLanguage = "de"
 
 [languages]
