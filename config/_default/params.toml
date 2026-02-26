@@ -1,0 +1,42 @@
+[sidebar]
+  emoji = "💪"
+  subtitle = "Dein Ratgeber für funktionelles Krafttraining — evidenzbasiert, strukturiert, für jedes Level."
+  avatar = { enabled = true, local = true, src = "img/avatar.png" }
+
+[footer]
+  since = 2026
+  customText = "Krafttraining Ratgeber — Wissen statt Zufall."
+
+[dateFormat]
+  published = "2. Jan 2006"
+  lastUpdated = "2. Jan 2006 15:04"
+
+[article]
+  math = false
+  toc = true
+  readingTime = true
+  license = { enabled = false }
+
+[widgets]
+  homepage = [
+    { type = "search" },
+    { type = "categories", params = { limit = 20 } },
+    { type = "tag-cloud", params = { limit = 30 } }
+  ]
+  page = [
+    { type = "toc" }
+  ]
+
+[colorScheme]
+  toggle = true
+  default = "auto"
+
+[imageProcessing]
+  cover = { enabled = true }
+  content = { enabled = true }
+
+[opengraph]
+  twitter = { site = "", card = "summary_large_image" }
+
+[defaultImage]
+  opengraph = { enabled = false }

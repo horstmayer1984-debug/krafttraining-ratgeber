@@ -1,0 +1,97 @@
+[[main]]
+  name = "Startseite"
+  url = "/"
+  weight = 10
+  [main.params]
+    icon = "home"
+
+[[main]]
+  identifier = "zielgruppen"
+  name = "Für wen?"
+  weight = 20
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Anfänger"
+  url = "/categories/anfaenger/"
+  weight = 1
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Fortgeschrittene"
+  url = "/categories/fortgeschrittene/"
+  weight = 2
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Profis"
+  url = "/categories/profis/"
+  weight = 3
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Frauen"
+  url = "/categories/frauen/"
+  weight = 4
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Senioren (50+)"
+  url = "/categories/senioren/"
+  weight = 5
+
+[[main]]
+  parent = "zielgruppen"
+  name = "Jugend & Kinder"
+  url = "/categories/jugend/"
+  weight = 6
+
+[[main]]
+  identifier = "trainingsort"
+  name = "Wo trainieren?"
+  weight = 30
+
+[[main]]
+  parent = "trainingsort"
+  name = "Zuhause"
+  url = "/categories/zuhause/"
+  weight = 1
+
+[[main]]
+  parent = "trainingsort"
+  name = "Im Fitnessstudio"
+  url = "/categories/fitnessstudio/"
+  weight = 2
+
+[[main]]
+  parent = "trainingsort"
+  name = "Draußen / Outdoor"
+  url = "/categories/outdoor/"
+  weight = 3
+
+[[main]]
+  name = "Prinzipien"
+  url = "/prinzipien/"
+  weight = 40
+
+[[main]]
+  name = "Übungen"
+  url = "/categories/uebungen/"
+  weight = 50
+
+[[main]]
+  name = "Trainingspläne"
+  url = "/categories/trainingsplaene/"
+  weight = 60
+
+[[main]]
+  name = "Glossar"
+  url = "/categories/glossar/"
+  weight = 70
+
+[[social]]
+  identifier = "email"
+  name = "Email"
+  url = "mailto:kontakt@krafttraining.online"
+  [social.params]
+    icon = "mail"
