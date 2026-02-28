@@ -1,10 +1,8 @@
 ---
-title: "Dein Fitnessstudio ist überall: Warum Krafttraining 
-ortsunabhängig funktioniert" date: 2026-02-28T12:00:00 description: 
-"Du brauchst kein Fitnessstudio, um stark zu werden. Eine 
-Kettlebell, eine Langhantel oder dein eigenes Körpergewicht reichen 
-völlig aus. Trainiere zuhause, draußen oder auf Reisen — die 
-Prinzipien sind überall identisch." categories:
+title: "Dein Fitnessstudio ist überall: Warum Krafttraining ortsunabhängig funktioniert"
+date: 2026-02-28T12:00:00
+description: "Du brauchst kein Fitnessstudio, um stark zu werden. Eine Kettlebell, eine Langhantel oder dein eigenes Körpergewicht reichen völlig aus. Trainiere zuhause, draußen oder auf Reisen — die Prinzipien sind überall identisch."
+categories:
   - Anfänger
   - Zuhause
   - Fitnessstudio
@@ -23,10 +21,6 @@ keywords:
   - Krafttraining Equipment
 image: ""
 draft: false
----
-
-Du brauchst kein Fitnessstudio, um stark zu werden. Krafttraining funktioniert mit einer Kettlebell im Wohnzimmer, mit einer Langhantel in der Garage oder mit dem eigenen Körpergewicht im Park. Die Prinzipien sind identisch — nur das Werkzeug ändert sich.
-
 ---
 
 Die Fitness-Industrie hat ein Interesse daran, dir einzureden, dass du teure Geräte, Mitgliedschaften und High-Tech-Equipment brauchst. Maschinen mit Bildschirmen, Kabelzüge mit zwanzig Einstellungen, Studios mit Saunalandschaft. All das ist nett. Aber nichts davon ist notwendig.
