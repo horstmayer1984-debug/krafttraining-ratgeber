@@ -1,4 +1,5 @@
---- title: "Dein Fitnessstudio ist überall: Warum Krafttraining 
+---
+title: "Dein Fitnessstudio ist überall: Warum Krafttraining 
 ortsunabhängig funktioniert" date: 2026-02-28T12:00:00 description: 
 "Du brauchst kein Fitnessstudio, um stark zu werden. Eine 
 Kettlebell, eine Langhantel oder dein eigenes Körpergewicht reichen 
