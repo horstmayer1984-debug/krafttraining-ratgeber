@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining für Senioren (50+)"
+title: "Senioren (50+)"
 description: "Muskelerhalt, Sturzprävention und Lebensqualität durch gezieltes Krafttraining im Alter."
 image: ""
 ---

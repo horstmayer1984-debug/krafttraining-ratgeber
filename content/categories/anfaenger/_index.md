@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining für Anfänger"
+title: "Anfänger"
 description: "Der strukturierte Einstieg ins Krafttraining. Keine Vorkenntnisse nötig — nur die Bereitschaft, es richtig zu lernen."
 image: ""
 ---

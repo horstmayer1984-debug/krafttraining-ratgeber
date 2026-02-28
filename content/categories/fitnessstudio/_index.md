@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining im Fitnessstudio"
+title: "Fitnessstudio"
 description: "Langhantel, Kurzhantel, Kabelzug: Wie du die Infrastruktur eines Studios maximal nutzt."
 image: ""
 ---

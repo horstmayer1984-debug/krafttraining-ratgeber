@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining Draußen / Outdoor"
+title: "Outdoor"
 description: "Calisthenics, Kettlebells und funktionelles Training an der frischen Luft."
 image: ""
 ---

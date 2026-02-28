@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining für Profis & Wettkampfathleten"
+title: "Profis"
 description: "Block-Periodisierung, ZNS-Management und Peaking-Strategien für erfahrene Athleten."
 image: ""
 ---

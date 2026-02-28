@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining Zuhause"
+title: "Zuhause"
 description: "Effektives Training mit Kettlebells, Bodyweight und minimalem Equipment — ohne Fitnessstudio."
 image: ""
 ---

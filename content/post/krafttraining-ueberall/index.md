@@ -19,7 +19,7 @@ keywords:
   - Kettlebell Training
   - Kreuzheben
   - Krafttraining Equipment
-image: ""
+image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1200&h=600&fit=crop"
 draft: false
 ---
 

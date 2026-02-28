@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining für Frauen"
+title: "Frauen"
 description: "Krafttraining ist kein Männersport. Hormonelle Zyklen, spezifische Anatomie und evidenzbasierte Programmierung für Frauen."
 image: ""
 ---

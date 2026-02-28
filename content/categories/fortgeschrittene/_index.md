@@ -1,5 +1,5 @@
 ---
-title: "Krafttraining für Fortgeschrittene"
+title: "Fortgeschrittene"
 description: "Raus aus der Stagnation. Periodisierung, Autoregulation und intelligente Programmierung für Trainierende mit Erfahrung."
 image: ""
 ---
