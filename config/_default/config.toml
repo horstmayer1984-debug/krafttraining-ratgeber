@@ -1,4 +1,4 @@
-baseURL = "https://krafttraining.online/"
+baseURL = "http://krafttraining.online/"
 languageCode = "de"
 title = "Krafttraining Ratgeber — Funktionelles Training mit System"
 theme = "hugo-theme-stack"
