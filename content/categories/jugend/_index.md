@@ -1,5 +1,5 @@
 ---
-title: "Jugend title: "Krafttraining für Jugendliche & Kinder" Kinder"
+title: "Jugend & Kinder"
 description: "Sicher und altersgerecht: Wie junge Sportler von Krafttraining profitieren, ohne Schaden zu nehmen."
 image: ""
 ---
