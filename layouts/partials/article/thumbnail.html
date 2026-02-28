@@ -1,0 +1,29 @@
+{{ $image := .Params.image }}
+{{ if not $image }}
+  {{/* Keyword-basiertes Unsplash-Bild aus erstem Tag */}}
+  {{ $tags := .Params.tags | default slice }}
+  {{ $query := "strength-training" }}
+  {{ if gt (len $tags) 0 }}
+    {{ $tag := index $tags 0 | lower }}
+    {{ if eq $tag "grundlagen" }}{{ $query = "gym,barbell" }}
+    {{ else if eq $tag "kettlebell" }}{{ $query = "kettlebell,workout" }}
+    {{ else if eq $tag "gesundheit" }}{{ $query = "fitness,health" }}
+    {{ else if eq $tag "equipment" }}{{ $query = "gym-equipment" }}
+    {{ else if eq $tag "nervensystem" }}{{ $query = "brain,neuroscience" }}
+    {{ else if eq $tag "verletzungsprävention" }}{{ $query = "stretching,recovery" }}
+    {{ else if eq $tag "kreuzheben" }}{{ $query = "deadlift,barbell" }}
+    {{ else }}{{ $query = printf "%s,fitness" $tag }}
+    {{ end }}
+  {{ end }}
+  <img src="https://source.unsplash.com/800x400/?{{ $query }}" 
+       alt="{{ .Title }}" 
+       loading="lazy">
+{{ else }}
+  {{/* Manuell gesetztes Bild */}}
+  {{ $resource := .Resources.GetMatch $image }}
+  {{ if $resource }}
+    <img src="{{ $resource.RelPermalink }}" alt="{{ .Title }}" loading="lazy">
+  {{ else }}
+    <img src="{{ $image }}" alt="{{ .Title }}" loading="lazy">
+  {{ end }}
+{{ end }}

@@ -1,0 +1,14 @@
+{{/* Automatisches Cover-Bild via Unsplash basierend auf Tags/Titel */}}
+{{ if not .Params.image }}
+  {{ $query := .Title | urlquery }}
+  {{ $tags := .Params.tags | default slice }}
+  {{ if gt (len $tags) 0 }}
+    {{ $query = delimit $tags "," | urlquery }}
+  {{ end }}
+  <div class="article-image">
+    <img src="https://source.unsplash.com/1200x600/?{{ $query }}" 
+         alt="{{ .Title }}" 
+         loading="lazy" 
+         style="width:100%; height:auto; object-fit:cover; border-radius:var(--card-border-radius, 10px);">
+  </div>
+{{ end }}

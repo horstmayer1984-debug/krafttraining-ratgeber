@@ -1,7 +1,7 @@
 ---
 title: "Warum Krafttraining die wichtigste Basis für deine Gesundheit ist"
 date: 2026-02-28
-description: "Krafttraining ist nicht nur für Bodybuilder. Es ist die effektivste Einzelmaßnahme für Gesundheit, Alltagskraft und Lebensqualität — in jedem Alter, für jedes Level."
+description: "Krafttraining ist die effektivste Einzelmaßnahme für Gesundheit und Alltagskraft. Es trainiert primär das Nervensystem, nicht nur die Muskeln. Deshalb eignet es sich für jedes Alter und jedes Fitnesslevel — vom Anfänger bis zum Profi."
 categories:
   - Anfänger
   - Fortgeschrittene
@@ -24,7 +24,7 @@ keywords:
   - Krafttraining Senioren
   - Krafttraining Frauen
   - funktionelles Krafttraining
-image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=600&fit=crop"
+image: ""
 draft: false
 ---
 

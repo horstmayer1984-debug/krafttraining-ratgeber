@@ -1,8 +1,9 @@
----
-title: "Dein Fitnessstudio ist überall: Warum Krafttraining ortsunabhängig funktioniert"
-date: 2026-02-28T12:00:00
-description: "Du brauchst kein Fitnessstudio, um stark zu werden. Eine Kettlebell, eine Langhantel oder dein eigenes Körpergewicht reichen — zuhause, draußen oder auf Reisen."
-categories:
+--- title: "Dein Fitnessstudio ist überall: Warum Krafttraining 
+ortsunabhängig funktioniert" date: 2026-02-28T12:00:00 description: 
+"Du brauchst kein Fitnessstudio, um stark zu werden. Eine 
+Kettlebell, eine Langhantel oder dein eigenes Körpergewicht reichen 
+völlig aus. Trainiere zuhause, draußen oder auf Reisen — die 
+Prinzipien sind überall identisch." categories:
   - Anfänger
   - Zuhause
   - Fitnessstudio
@@ -19,7 +20,7 @@ keywords:
   - Kettlebell Training
   - Kreuzheben
   - Krafttraining Equipment
-image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1200&h=600&fit=crop"
+image: ""
 draft: false
 ---
 
