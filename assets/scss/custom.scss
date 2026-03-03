@@ -1,7 +1,21 @@
 :root {
-  --body-background: #E2E8F0;
+    --body-background: #E8ECF1;
+    --card-background: #FFFFFF;
+    --body-text-color: #1A202C;
+    --card-text-color-secondary: #64748B;
+    --accent-color: #E8634A;
+    --accent-color-darker: #D14F38;
+    --accent-color-text: #FFFFFF;
+    --tag-color: #0D7377;
+    --tag-color-hover: #0A5C5F;
 }
 
 [data-scheme="dark"] {
-  --body-background: #1a202c;
+    --body-background: #0F1419;
+    --card-background: #1C2128;
+    --body-text-color: #E6EDF3;
+    --card-text-color-secondary: #8B949E;
+    --accent-color: #E8634A;
+    --tag-color: #2EB8B8;
+    --tag-color-hover: #3DD4D4;
 }
