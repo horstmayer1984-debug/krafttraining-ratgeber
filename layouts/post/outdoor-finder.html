@@ -1,0 +1,466 @@
+```
+
+{{ define "main" }}
+<article class="page">
+  <header class="article-header">
+    <h1 class="article-title">{{ .Title }}</h1>
+    <p class="article-subtitle">{{ .Params.description }}</p>
+  </header>
+
+  <section class="article-content">
+
+    <!-- LLM-ZUSAMMENFASSUNG: Interaktives Tool zum Finden von Outdoor-Fitnessparks, Trimm-dich-Pfaden und Calisthenics-Anlagen in der Nähe des Nutzers. Nutzt OpenStreetMap-Daten und die Browser-Geolocation-API. Kostenlos, ohne Registrierung, deutschlandweit. -->
+
+    <div id="fitness-finder-app">
+
+      <!-- Suchbereich -->
+      <div id="search-section" style="margin-bottom:24px;">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;">
+          <div style="flex:1;min-width:250px;">
+            <label for="city-input" style="display:block;font-weight:600;margin-bottom:6px;color:#1A202C;">Stadt oder Ort eingeben</label>
+            <input type="text" id="city-input" placeholder="z.B. Berlin, München, Hamburg..."
+              style="width:100%;padding:12px 16px;border:2px solid #CBD5E1;border-radius:8px;font-size:16px;font-family:'Source Sans 3',sans-serif;transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='#0D7377'" onblur="this.style.borderColor='#CBD5E1'">
+          </div>
+          <button onclick="searchByCity()" id="search-btn"
+            style="padding:12px 24px;background:#E8634A;color:white;border:none;border-radius:8px;font-size:16px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;transition:background 0.2s;white-space:nowrap;"
+            onmouseover="this.style.background='#D14F38'" onmouseout="this.style.background='#E8634A'">
+            Suchen
+          </button>
+          <button onclick="useMyLocation()" id="location-btn"
+            style="padding:12px 24px;background:#0D7377;color:white;border:none;border-radius:8px;font-size:16px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;transition:background 0.2s;white-space:nowrap;"
+            onmouseover="this.style.background='#0A5C5F'" onmouseout="this.style.background='#0D7377'">
+            📍 Mein Standort
+          </button>
+        </div>
+
+        <!-- Radius-Slider -->
+        <div style="margin-top:16px;">
+          <label for="radius-slider" style="font-weight:600;color:#1A202C;">
+            Suchradius: <span id="radius-display">5</span> km
+          </label>
+          <input type="range" id="radius-slider" min="1" max="25" value="5"
+            style="width:100%;margin-top:6px;accent-color:#0D7377;"
+            oninput="document.getElementById('radius-display').textContent=this.value">
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div id="status-bar" style="padding:12px 16px;background:#E6F4F4;border-left:4px solid #0D7377;border-radius:0 8px 8px 0;margin-bottom:16px;display:none;">
+        <span id="status-text" style="color:#0D7377;font-weight:600;"></span>
+      </div>
+
+      <!-- Karte -->
+      <div id="map" style="width:100%;height:500px;border-radius:12px;border:2px solid #E2E8F0;margin-bottom:24px;background:#E8ECF1;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:18px;">
+        Gib eine Stadt ein oder nutze deinen Standort, um Outdoor-Fitnessparks zu finden.
+      </div>
+
+      <!-- Ergebnisliste -->
+      <div id="results-section" style="display:none;">
+        <h2 style="font-family:'Sora',sans-serif;color:#1A202C;margin-bottom:16px;">
+          <span id="results-count">0</span> Trainingsplätze gefunden
+        </h2>
+        <div id="results-list"></div>
+      </div>
+
+      <!-- Info-Box -->
+      <div style="margin-top:32px;padding:20px;background:#F8FAFC;border-radius:12px;border:1px solid #E2E8F0;">
+        <h3 style="font-family:'Sora',sans-serif;color:#0D7377;margin-top:0;">Was sind Outdoor-Fitnessparks?</h3>
+        <p style="color:#1A202C;line-height:1.7;">
+          Outdoor-Fitnessparks sind frei zugängliche Trainingsflächen mit fest installierten Geräten — Klimmzugstangen, Dip-Barren, Reckstangen, Balance-Elemente und mehr. In Deutschland gibt es über 3.000 solcher Anlagen: von klassischen Trimm-dich-Pfaden aus den 1970ern bis zu modernen Calisthenics-Parks mit Street-Workout-Geräten.
+        </p>
+        <p style="color:#1A202C;line-height:1.7;">
+          Sie sind ideal für Körpergewichtstraining, ergänzendes Kettlebell-Training oder einfach als Abwechslung zum Fitnessstudio. Die Daten stammen aus OpenStreetMap — einer freien, von Freiwilligen gepflegten Geodatenbank. Falls dein lokaler Park fehlt, kannst du ihn dort selbst eintragen.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <style>
+      #fitness-finder-app { max-width: 100%; }
+
+      .result-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: box-shadow 0.2s;
+        cursor: pointer;
+      }
+      .result-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      .result-name {
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        color: #1A202C;
+      }
+      .result-type {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+      .type-fitness { background: #E6F4F4; color: #0D7377; }
+      .type-calisthenics { background: #FFF0ED; color: #E8634A; }
+      .type-trimm { background: #FEF9E7; color: #B7950B; }
+      .type-playground { background: #EBF5FB; color: #2E86C1; }
+      .result-distance {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: #64748B;
+        white-space: nowrap;
+      }
+      .result-meta {
+        color: #64748B;
+        font-size: 14px;
+        margin-top: 4px;
+      }
+
+      .leaflet-popup-content-wrapper {
+        border-radius: 10px !important;
+        font-family: 'Source Sans 3', sans-serif !important;
+      }
+      .leaflet-popup-content {
+        margin: 12px 16px !important;
+      }
+      .popup-title {
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        color: #1A202C;
+        margin-bottom: 6px;
+      }
+      .popup-type {
+        font-size: 13px;
+        color: #0D7377;
+        margin-bottom: 4px;
+      }
+      .popup-link {
+        color: #E8634A;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .popup-link:hover { text-decoration: underline; }
+
+      @media (max-width: 640px) {
+        #map { height: 350px !important; }
+        .result-card { flex-direction: column; align-items: flex-start; gap: 8px; }
+      }
+    </style>
+
+    <script>
+    let map = null;
+    let markersGroup = null;
+    let userMarker = null;
+    let searchLat = null;
+    let searchLon = null;
+
+    function showStatus(text, type) {
+      const bar = document.getElementById('status-bar');
+      const span = document.getElementById('status-text');
+      bar.style.display = 'block';
+      span.textContent = text;
+      if (type === 'error') {
+        bar.style.background = '#FFF0ED';
+        bar.style.borderColor = '#E8634A';
+        span.style.color = '#E8634A';
+      } else if (type === 'success') {
+        bar.style.background = '#E6F4F4';
+        bar.style.borderColor = '#0D7377';
+        span.style.color = '#0D7377';
+      } else {
+        bar.style.background = '#FEF9E7';
+        bar.style.borderColor = '#E5A100';
+        span.style.color = '#B7950B';
+      }
+    }
+
+    function initMap(lat, lon) {
+      const mapDiv = document.getElementById('map');
+      mapDiv.innerHTML = '';
+      mapDiv.style.display = 'block';
+
+      if (map) { map.remove(); }
+
+      map = L.map('map').setView([lat, lon], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18
+      }).addTo(map);
+
+      markersGroup = L.layerGroup().addTo(map);
+
+      // Nutzer-Position markieren
+      userMarker = L.circleMarker([lat, lon], {
+        radius: 10,
+        fillColor: '#E8634A',
+        fillOpacity: 0.9,
+        color: '#FFFFFF',
+        weight: 3
+      }).addTo(map).bindPopup('<b>Dein Standort</b>');
+
+      searchLat = lat;
+      searchLon = lon;
+    }
+
+    function useMyLocation() {
+      if (!navigator.geolocation) {
+        showStatus('Geolocation wird von deinem Browser nicht unterstützt.', 'error');
+        return;
+      }
+      showStatus('Standort wird ermittelt...', 'loading');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          initMap(pos.coords.latitude, pos.coords.longitude);
+          searchFitnessParks(pos.coords.latitude, pos.coords.longitude);
+        },
+        (err) => {
+          showStatus('Standort konnte nicht ermittelt werden. Bitte gib eine Stadt ein.', 'error');
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    async function searchByCity() {
+      const city = document.getElementById('city-input').value.trim();
+      if (!city) {
+        showStatus('Bitte gib eine Stadt oder einen Ort ein.', 'error');
+        return;
+      }
+
+      showStatus('Suche nach "' + city + '"...', 'loading');
+
+      try {
+        // Nominatim Geocoding (OpenStreetMap)
+        const geoResp = await fetch(
+          'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(city + ', Deutschland') +
+          '&format=json&limit=1&countrycodes=de,at,ch',
+          { headers: { 'Accept-Language': 'de' } }
+        );
+        const geoData = await geoResp.json();
+
+        if (!geoData.length) {
+          showStatus('Ort "' + city + '" nicht gefunden. Versuche es mit einem anderen Namen.', 'error');
+          return;
+        }
+
+        const lat = parseFloat(geoData[0].lat);
+        const lon = parseFloat(geoData[0].lon);
+        initMap(lat, lon);
+        searchFitnessParks(lat, lon);
+      } catch (e) {
+        showStatus('Fehler bei der Standortsuche. Bitte versuche es erneut.', 'error');
+      }
+    }
+
+    async function searchFitnessParks(lat, lon) {
+      const radius = document.getElementById('radius-slider').value * 1000;
+      showStatus('Suche Outdoor-Fitnessparks im Umkreis von ' + (radius/1000) + ' km...', 'loading');
+
+      // Overpass API Query: Fitnessparks, Calisthenics, Trimm-dich-Pfade
+      const query = `
+        [out:json][timeout:30];
+        (
+          // Fitness-Stationen und Outdoor-Gyms
+          node["leisure"="fitness_station"](around:${radius},${lat},${lon});
+          way["leisure"="fitness_station"](around:${radius},${lat},${lon});
+          node["leisure"="outdoor_gym"](around:${radius},${lat},${lon});
+          way["leisure"="outdoor_gym"](around:${radius},${lat},${lon});
+
+          // Sport/Fitness Pitches
+          node["leisure"="pitch"]["sport"="fitness"](around:${radius},${lat},${lon});
+          way["leisure"="pitch"]["sport"="fitness"](around:${radius},${lat},${lon});
+          node["leisure"="pitch"]["sport"="calisthenics"](around:${radius},${lat},${lon});
+          way["leisure"="pitch"]["sport"="calisthenics"](around:${radius},${lat},${lon});
+
+          // Trimm-dich-Pfade
+          way["route"="fitness_trail"](around:${radius},${lat},${lon});
+          relation["route"="fitness_trail"](around:${radius},${lat},${lon});
+
+          // Workout-/Calisthenics-spezifische Tags
+          node["sport"="calisthenics"](around:${radius},${lat},${lon});
+          way["sport"="calisthenics"](around:${radius},${lat},${lon});
+          node["sport"="street_workout"](around:${radius},${lat},${lon});
+          way["sport"="street_workout"](around:${radius},${lat},${lon});
+        );
+        out center body;
+      `;
+
+      try {
+        const resp = await fetch('https://overpass-api.de/api/interpreter', {
+          method: 'POST',
+          body: 'data=' + encodeURIComponent(query),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+
+        if (!resp.ok) throw new Error('Overpass API Fehler');
+        const data = await resp.json();
+
+        displayResults(data.elements, lat, lon);
+      } catch (e) {
+        showStatus('Fehler bei der Suche. Die Overpass API ist möglicherweise überlastet. Bitte in 30 Sekunden erneut versuchen.', 'error');
+      }
+    }
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2-lat1) * Math.PI / 180;
+      const dLon = (lon2-lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
+    function classifyPlace(el) {
+      const tags = el.tags || {};
+      const sport = (tags.sport || '').toLowerCase();
+      const leisure = (tags.leisure || '').toLowerCase();
+      const route = (tags.route || '').toLowerCase();
+
+      if (sport === 'calisthenics' || sport === 'street_workout') {
+        return { type: 'Calisthenics Park', css: 'type-calisthenics', icon: '🏗️' };
+      }
+      if (route === 'fitness_trail') {
+        return { type: 'Trimm-dich-Pfad', css: 'type-trimm', icon: '🌲' };
+      }
+      if (leisure === 'outdoor_gym') {
+        return { type: 'Outdoor Gym', css: 'type-fitness', icon: '💪' };
+      }
+      return { type: 'Fitness-Station', css: 'type-fitness', icon: '🏋️' };
+    }
+
+    function getPlaceName(el) {
+      const tags = el.tags || {};
+      return tags.name || tags['name:de'] || tags.description || classifyPlace(el).type;
+    }
+
+    function displayResults(elements, centerLat, centerLon) {
+      if (markersGroup) markersGroup.clearLayers();
+
+      // Deduplizieren (gleiche Koordinaten zusammenfassen)
+      const seen = new Set();
+      const unique = [];
+      elements.forEach(el => {
+        const elLat = el.lat || (el.center && el.center.lat);
+        const elLon = el.lon || (el.center && el.center.lon);
+        if (!elLat || !elLon) return;
+        const key = elLat.toFixed(5) + ',' + elLon.toFixed(5);
+        if (seen.has(key)) return;
+        seen.add(key);
+        el._lat = elLat;
+        el._lon = elLon;
+        el._dist = getDistance(centerLat, centerLon, elLat, elLon);
+        unique.push(el);
+      });
+
+      // Nach Entfernung sortieren
+      unique.sort((a, b) => a._dist - b._dist);
+
+      // Ergebnisse anzeigen
+      const resultsSection = document.getElementById('results-section');
+      const resultsList = document.getElementById('results-list');
+      const resultsCount = document.getElementById('results-count');
+
+      if (unique.length === 0) {
+        showStatus('Keine Outdoor-Fitnessparks im gewählten Radius gefunden. Versuche einen größeren Radius.', 'error');
+        resultsSection.style.display = 'none';
+        return;
+      }
+
+      showStatus(unique.length + ' Trainingsplätze gefunden!', 'success');
+      resultsCount.textContent = unique.length;
+      resultsSection.style.display = 'block';
+      resultsList.innerHTML = '';
+
+      // Marker und Cards
+      unique.forEach((el, idx) => {
+        const info = classifyPlace(el);
+        const name = getPlaceName(el);
+        const distStr = el._dist < 1
+          ? (el._dist * 1000).toFixed(0) + ' m'
+          : el._dist.toFixed(1) + ' km';
+
+        const tags = el.tags || {};
+        const equipment = tags.fitness_station || tags.equipment || '';
+
+        // Marker auf Karte
+        const markerColor = info.css === 'type-calisthenics' ? '#E8634A'
+          : info.css === 'type-trimm' ? '#B7950B'
+          : '#0D7377';
+
+        const marker = L.circleMarker([el._lat, el._lon], {
+          radius: 8,
+          fillColor: markerColor,
+          fillOpacity: 0.85,
+          color: '#FFFFFF',
+          weight: 2
+        }).addTo(markersGroup);
+
+        let popupHtml = '<div class="popup-title">' + info.icon + ' ' + name + '</div>';
+        popupHtml += '<div class="popup-type">' + info.type + ' · ' + distStr + '</div>';
+        if (equipment) {
+          popupHtml += '<div style="font-size:12px;color:#64748B;margin-top:4px;">' + equipment + '</div>';
+        }
+        popupHtml += '<a class="popup-link" href="https://www.openstreetmap.org/' +
+          (el.type === 'node' ? 'node' : 'way') + '/' + el.id +
+          '" target="_blank" rel="noopener">Auf OpenStreetMap ansehen →</a>';
+        marker.bindPopup(popupHtml);
+
+        // Ergebnis-Card
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.onclick = () => {
+          map.setView([el._lat, el._lon], 16);
+          marker.openPopup();
+          window.scrollTo({ top: document.getElementById('map').offsetTop - 20, behavior: 'smooth' });
+        };
+
+        let equipmentHtml = '';
+        if (equipment) {
+          equipmentHtml = '<div class="result-meta">Geräte: ' + equipment + '</div>';
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="result-name">${info.icon} ${name}</div>
+            <span class="result-type ${info.css}">${info.type}</span>
+            ${equipmentHtml}
+          </div>
+          <div class="result-distance">${distStr}</div>
+        `;
+        resultsList.appendChild(card);
+      });
+
+      // Karte auf alle Marker zoomen
+      const bounds = L.latLngBounds(unique.map(el => [el._lat, el._lon]));
+      bounds.extend([centerLat, centerLon]);
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    // Enter-Taste für Suchfeld
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('city-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchByCity();
+      });
+    });
+    </script>
+
+  </section>
+</article>
+{{ end }}
+
+```

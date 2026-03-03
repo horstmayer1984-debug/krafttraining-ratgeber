@@ -89,6 +89,12 @@
   url = "/categories/glossar/"
   weight = 70
 
+[[main]]
+  parent = "trainingsort"
+  name = "🗺️ Park-Finder"
+  url = "/post/outdoor-fitnessparks/"
+  weight = 4
+
 [[social]]
   identifier = "email"
   name = "Email"
