@@ -21,6 +21,7 @@ keywords:
   - Krafttraining Equipment
 image: ""
 draft: false
+summary: "Krafttraining funktioniert überall — zuhause, im Studio oder draußen. Mit einer Kettlebell oder dem eigenen Körpergewicht deckst du alle Grundbewegungen ab. Kein Fitnessstudio nötig."
 ---
 
 Die Fitness-Industrie hat ein Interesse daran, dir einzureden, dass du teure Geräte, Mitgliedschaften und High-Tech-Equipment brauchst. Maschinen mit Bildschirmen, Kabelzüge mit zwanzig Einstellungen, Studios mit Saunalandschaft. All das ist nett. Aber nichts davon ist notwendig.

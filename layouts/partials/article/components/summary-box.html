@@ -1,0 +1,6 @@
+{{ with .Params.summary }}
+<div class="summary-box" style="background:#E6F4F4;border-left:4px solid #0D7377;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:24px;font-size:16px;line-height:1.6;color:#1A202C;">
+  <strong style="color:#0D7377;display:block;margin-bottom:6px;font-family:'Sora',sans-serif;">Zusammenfassung</strong>
+  {{ . | markdownify }}
+</div>
+{{ end }}

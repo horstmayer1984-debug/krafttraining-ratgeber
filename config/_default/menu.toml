@@ -6,9 +6,19 @@
     icon = "home"
 
 [[main]]
+  name = "Grundlagen"
+  url = "/grundlagen/"
+  weight = 20
+
+[[main]]
+  name = "Übungen"
+  url = "/uebungen/"
+  weight = 30
+
+[[main]]
   identifier = "zielgruppen"
   name = "Für wen?"
-  weight = 20
+  weight = 40
 
 [[main]]
   parent = "zielgruppen"
@@ -24,32 +34,26 @@
 
 [[main]]
   parent = "zielgruppen"
-  name = "Profis"
-  url = "/categories/profis/"
-  weight = 3
-
-[[main]]
-  parent = "zielgruppen"
   name = "Frauen"
   url = "/categories/frauen/"
-  weight = 4
+  weight = 3
 
 [[main]]
   parent = "zielgruppen"
   name = "Senioren (50+)"
   url = "/categories/senioren/"
-  weight = 5
+  weight = 4
 
 [[main]]
   parent = "zielgruppen"
   name = "Jugend & Kinder"
   url = "/categories/jugend/"
-  weight = 6
+  weight = 5
 
 [[main]]
   identifier = "trainingsort"
   name = "Wo trainieren?"
-  weight = 30
+  weight = 50
 
 [[main]]
   parent = "trainingsort"
@@ -59,41 +63,26 @@
 
 [[main]]
   parent = "trainingsort"
-  name = "Im Fitnessstudio"
+  name = "Fitnessstudio"
   url = "/categories/fitnessstudio/"
   weight = 2
 
 [[main]]
   parent = "trainingsort"
-  name = "Draußen / Outdoor"
+  name = "Outdoor"
   url = "/categories/outdoor/"
   weight = 3
 
 [[main]]
-  name = "Prinzipien"
-  url = "/prinzipien/"
-  weight = 40
-
-[[main]]
-  name = "Übungen"
-  url = "/categories/uebungen/"
-  weight = 50
-
-[[main]]
-  name = "Trainingspläne"
-  url = "/categories/trainingsplaene/"
-  weight = 60
-
-[[main]]
-  name = "Glossar"
-  url = "/categories/glossar/"
-  weight = 70
-
-[[main]]
   parent = "trainingsort"
-  name = "🗺️ Park-Finder"
-  url = "/post/outdoor-fitnessparks/"
+  name = "Park-Finder"
+  url = "/tools/outdoor-fitnessparks/"
   weight = 4
+
+[[main]]
+  name = "Tools"
+  url = "/tools/"
+  weight = 60
 
 [[social]]
   identifier = "email"

@@ -26,6 +26,7 @@ keywords:
   - funktionelles Krafttraining
 image: ""
 draft: false
+summary: "Krafttraining ist die wirksamste Einzelmaßnahme für langfristige Gesundheit. Es trainiert primär das Nervensystem und eignet sich für jedes Alter und Level — vom Anfänger bis zum Profi."
 ---
 
 Krafttraining ist die wirksamste Einzelmaßnahme für langfristige Gesundheit, Alltagskraft und Verletzungsprävention. Es trainiert primär das Nervensystem, nicht nur die Muskeln, und eignet sich deshalb für jedes Alter und jedes Fitnesslevel — vom Teenager bis zum 80-Jährigen, vom blutigen Anfänger bis zum Wettkampfathleten.

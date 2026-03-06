@@ -40,3 +40,7 @@ defaultContentLanguage = "de"
   [[related.indices]]
     name = "prinzipien"
     weight = 60
+[permalinks]
+  grundlagen = "/grundlagen/:slug/"
+  uebungen = "/uebungen/:slug/"
+  tools = "/tools/:slug/"
