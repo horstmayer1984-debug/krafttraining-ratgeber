@@ -1,21 +1,210 @@
+/* ============================================
+   KRAFTTRAINING RATGEBER — Design System
+   ============================================ */
+
+/* --- Google Fonts werden über head/custom.html geladen --- */
+
+/* === LIGHT MODE === */
 :root {
-    --body-background: #E8ECF1;
+    /* Hintergrund & Oberflächen */
+    --body-background: #F0F4F8;
     --card-background: #FFFFFF;
+    --card-background-hover: #FFFFFF;
+
+    /* Text */
     --body-text-color: #1A202C;
+    --card-text-color-main: #1A202C;
     --card-text-color-secondary: #64748B;
+    --card-text-color-tertiary: #94A3B8;
+
+    /* Akzente */
     --accent-color: #E8634A;
     --accent-color-darker: #D14F38;
     --accent-color-text: #FFFFFF;
+
+    /* Tags & Links */
     --tag-color: #0D7377;
     --tag-color-hover: #0A5C5F;
+
+    /* Schatten */
+    --shadow-l1: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-l2: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-l3: 0 8px 24px rgba(0,0,0,0.12);
+    --shadow-l4: 0 12px 36px rgba(0,0,0,0.16);
+
+    /* Card */
+    --card-border-radius: 16px;
+    --card-padding: 20px;
 }
 
+/* === DARK MODE === */
 [data-scheme="dark"] {
     --body-background: #0F1419;
     --card-background: #1C2128;
+    --card-background-hover: #242A32;
     --body-text-color: #E6EDF3;
+    --card-text-color-main: #E6EDF3;
     --card-text-color-secondary: #8B949E;
+    --card-text-color-tertiary: #6E7781;
     --accent-color: #E8634A;
+    --accent-color-darker: #F07A64;
     --tag-color: #2EB8B8;
     --tag-color-hover: #3DD4D4;
+}
+
+/* === TYPOGRAFIE === */
+body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.article-title,
+.section-title {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.article-content {
+    font-size: 1.075rem;
+    line-height: 1.75;
+}
+
+.article-content h2 {
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.4em;
+    border-bottom: 2px solid #E2E8F0;
+    font-size: 1.5rem;
+}
+
+[data-scheme="dark"] .article-content h2 {
+    border-bottom-color: #2D3748;
+}
+
+.article-content h3 {
+    margin-top: 1.8em;
+    font-size: 1.25rem;
+}
+
+/* === KATEGORIEN AUSBLENDEN === */
+.article-category,
+article .article-details .article-category,
+.article-list--tile .article-category,
+.article-subtitle--tag {
+    display: none !important;
+}
+
+/* === CARDS === */
+.article-list article {
+    border-radius: var(--card-border-radius) !important;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-list article:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-l3);
+}
+
+/* Card Images */
+.article-list article .article-image img {
+    transition: transform 0.3s ease;
+}
+
+.article-list article:hover .article-image img {
+    transform: scale(1.03);
+}
+
+/* === SIDEBAR === */
+.sidebar {
+    --card-padding: 24px;
+}
+
+.sidebar .site-name {
+    font-family: 'Sora', sans-serif !important;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.sidebar .site-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.85;
+}
+
+/* === BUTTONS & LINKS === */
+a {
+    color: var(--accent-color);
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--accent-color-darker);
+}
+
+/* === TAG CLOUD === */
+.tagCloud .tagCloud-tags a {
+    border-radius: 20px !important;
+    padding: 4px 14px !important;
+    font-size: 0.85rem !important;
+    transition: all 0.15s ease;
+}
+
+.tagCloud .tagCloud-tags a:hover {
+    background: var(--tag-color) !important;
+    color: white !important;
+}
+
+/* === WIDGET CARDS === */
+.widget {
+    border-radius: var(--card-border-radius) !important;
+}
+
+/* === FOOTER === */
+.footer {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* === SUMMARY BOX (für Artikel) === */
+.summary-box {
+    background: #E6F4F4;
+    border-left: 4px solid #0D7377;
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.summary-box strong {
+    color: #0D7377;
+    font-family: 'Sora', sans-serif;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+[data-scheme="dark"] .summary-box {
+    background: #1A2E2E;
+    border-color: #2EB8B8;
+}
+
+[data-scheme="dark"] .summary-box strong {
+    color: #2EB8B8;
+}
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+    .article-content {
+        font-size: 1rem;
+    }
+
+    .article-content h2 {
+        font-size: 1.3rem;
+    }
 }

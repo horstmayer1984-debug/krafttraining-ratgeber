@@ -1,3 +1,11 @@
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Schema.org -->
 {{ partial "schema-jsonld.html" . }}
+
+<!-- Meta -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 {{ with .Params.description }}<meta name="description" content="{{ . }}">{{ end }}

@@ -44,3 +44,5 @@ defaultContentLanguage = "de"
   grundlagen = "/grundlagen/:slug/"
   uebungen = "/uebungen/:slug/"
   tools = "/tools/:slug/"
+[params]
+  mainSections = ["grundlagen", "uebungen", "tools"]
